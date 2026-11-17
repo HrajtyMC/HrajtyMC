@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="376" height="72" viewBox="0 0 376 72" role="img" aria-labelledby="wordmark-title">
+  <title id="wordmark-title">HrajtyMC by Hrajto Studio</title>
+  <g transform="translate(6 6)" shape-rendering="crispEdges">
+    <rect width="60" height="60" fill="#fff"/>
+    <path d="M0 0h20v20H0zM40 0h20v20H40zM20 20h20v20H20zM0 40h20v20H0zM40 40h20v20H40z" fill="#13cd14"/>
+  </g>
+  <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif">
+    <text x="84" y="45" fill="#112d20" font-size="38" font-weight="750" letter-spacing="-1.8">HrajtyMC</text>
+    <text x="87" y="63" fill="#567461" font-size="9" font-weight="650" letter-spacing="2.5">HRAJTO STUDIO</text>
+  </g>
+</svg>

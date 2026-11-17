@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="720" viewBox="0 0 840 720" fill="none" role="img" aria-labelledby="hero-title hero-description">
+  <title id="hero-title">Build your own world with HrajtyMC</title>
+  <desc id="hero-description">An original illustration of a floating green block island, a dark red ruby block and a faceted ruby crystal. This is artwork, not a game screenshot.</desc>
+  <defs>
+    <filter id="ground-shadow" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+    <filter id="gem-shadow" x="-50%" y="-100%" width="200%" height="300%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+    <pattern id="background-grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" stroke="#dcefe2" stroke-width="1"/>
+    </pattern>
+    <clipPath id="grid-circle"><circle cx="420" cy="350" r="294"/></clipPath>
+    <g id="grass-cube">
+      <path d="M-80-8 0 32V114L-80 74Z" fill="#239c4b"/>
+      <path d="M0 32 80-8V74L0 114Z" fill="#187a3c"/>
+      <path d="M0-48 80-8 0 32-80-8Z" fill="#6bdc80"/>
+      <path d="M-80-8 0 32 80-8M0 32V114" stroke="#136d35" stroke-opacity=".25" stroke-width="1.5"/>
+      <path d="M-60 2-40 12V27L-60 17ZM-20 37 0 47V62L-20 52Z" fill="#1d8b42"/>
+      <path d="M40 12 60 2V17L40 27ZM0 77 20 67V82L0 92Z" fill="#146e35"/>
+      <path d="M0-38 20-28 0-18-20-28ZM-40-8-20 2-40 12-60 2Z" fill="#95eba2" fill-opacity=".65"/>
+    </g>
+    <g id="ruby-cube">
+      <path d="M-80-8 0 32V114L-80 74Z" fill="#9d2440"/>
+      <path d="M0 32 80-8V74L0 114Z" fill="#6d1732"/>
+      <path d="M0-48 80-8 0 32-80-8Z" fill="#db4160"/>
+      <path d="M0-36 56-8 0 20-56-8Z" fill="#eb6680"/>
+      <path d="M0-24 32-8 0 8-32-8Z" fill="#e94a6c"/>
+      <path d="M-66 9-14 35V90L-66 64Z" fill="#b72a4a"/>
+      <path d="M-53 24-27 37V69L-53 56Z" fill="#d74061"/>
+      <path d="M14 35 66 9V64L14 90Z" fill="#8e1d3c"/>
+      <path d="M27 42 53 29V51L27 64Z" fill="#b62a4d"/>
+      <path d="M-80-8 0 32 80-8M0 32V114" stroke="#55142b" stroke-opacity=".35" stroke-width="1.5"/>
+    </g>
+    <g id="white-cube">
+      <path d="M-44-4 0 18V62L-44 40Z" fill="#ddf1e2"/>
+      <path d="M0 18 44-4V40L0 62Z" fill="#b9dec4"/>
+      <path d="M0-26 44-4 0 18-44-4Z" fill="#fff"/>
+      <path d="M-44-4 0 18 44-4M0 18V62" stroke="#8dc59c" stroke-opacity=".4"/>
+      <path d="M0-16 24-4 0 8-24-4Z" fill="#13cd14"/>
+    </g>
+    <g id="ruby-crystal">
+      <path d="M-38-30-18-54H18L38-30 22 24 0 54-22 24Z" fill="#bd294d"/>
+      <path d="M-18-54H18L0-24Z" fill="#fa8da2"/>
+      <path d="M-38-30-18-54 0-24-22 0Z" fill="#ef5d7d"/>
+      <path d="M18-54 38-30 22 0 0-24Z" fill="#dd3e63"/>
+      <path d="M-22 0 0-24 22 0 0 54Z" fill="#d93960"/>
+      <path d="M-38-30-22 0 0 54-22 24Z" fill="#a61f42"/>
+      <path d="M38-30 22 0 0 54 22 24Z" fill="#761a36"/>
+      <path d="M-18-54H18L38-30 22 24 0 54-22 24-38-30Z" stroke="#6c1730" stroke-opacity=".25"/>
+      <path d="M-22-30-17-39" stroke="#fff" stroke-opacity=".8" stroke-width="4" stroke-linecap="square"/>
+    </g>
+    <g id="sparkle" stroke="#13cd14" stroke-width="3" stroke-linecap="square">
+      <path d="M0-7V7M-7 0H7"/>
+    </g>
+  </defs>
+
+  <circle cx="420" cy="350" r="294" fill="#f1faf3"/>
+  <g clip-path="url(#grid-circle)" opacity=".7"><rect x="100" y="40" width="640" height="620" fill="url(#background-grid)"/></g>
+  <path d="M133 439C68 318 170 177 285 173M560 155C673 174 749 268 711 388" stroke="#a3d8b2" stroke-width="2" stroke-dasharray="4 9"/>
+  <path d="M648 420 674 433 648 446 622 433Z" stroke="#92cca3" stroke-width="1.5"/>
+  <path d="M137 324 152 332 137 340 122 332Z" fill="#c4eace"/>
+  <ellipse cx="420" cy="651" rx="203" ry="30" fill="#b9d7c2" opacity=".3" filter="url(#ground-shadow)"/>
+
+  <use href="#grass-cube" transform="translate(420 362)"/>
+  <use href="#grass-cube" transform="translate(500 402)"/>
+  <use href="#grass-cube" transform="translate(340 402)"/>
+  <use href="#grass-cube" transform="translate(580 442)"/>
+  <use href="#grass-cube" transform="translate(420 442)"/>
+  <use href="#grass-cube" transform="translate(260 442)"/>
+  <use href="#ruby-cube" transform="translate(420 360)"/>
+  <use href="#grass-cube" transform="translate(500 482)"/>
+  <use href="#grass-cube" transform="translate(340 482)"/>
+  <use href="#grass-cube" transform="translate(420 522)"/>
+
+  <ellipse cx="180" cy="344" rx="42" ry="10" fill="#9ccbAB" opacity=".17" filter="url(#gem-shadow)"/>
+  <use href="#white-cube" transform="translate(180 241)"/>
+  <path d="M180 332V356M180 372V379" stroke="#78b98b" stroke-width="2" stroke-dasharray="3 5"/>
+
+  <ellipse cx="626" cy="319" rx="36" ry="9" fill="#8e2946" opacity=".1" filter="url(#gem-shadow)"/>
+  <use href="#ruby-crystal" transform="translate(626 220)"/>
+  <path d="M626 290V308" stroke="#bf7990" stroke-width="2" stroke-dasharray="3 5"/>
+  <use href="#sparkle" transform="translate(664 138)"/>
+  <use href="#sparkle" transform="translate(142 407) scale(.75)"/>
+  <use href="#sparkle" transform="translate(523 122) scale(.6)"/>
+  <circle cx="293" cy="134" r="4" fill="#72ce8b"/>
+  <circle cx="714" cy="356" r="3" fill="#72ce8b"/>
+  <circle cx="227" cy="566" r="3" fill="#72ce8b"/>
+</svg>
