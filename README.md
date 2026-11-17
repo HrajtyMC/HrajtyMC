@@ -40,10 +40,13 @@ downloads, with sizes and SHA-256 hashes. Update it only after checking the
 intended release files. Upload compiled packages as GitHub Release assets rather
 than committing JARs or SDK ZIPs to the site source.
 
-The build emits `updates.json` as `{ "version": "0.1.0-alpha.2" }`. HrajtyMC can
-use `https://hrajtymc.github.io/HrajtyMC/updates.json` for notification-only update
-checks when a user configures that URL. Existing alpha.2 installs do not silently
-gain a feed URL; see the public Updating guide.
+The build emits `updates.json` with the current `version`, `installerUrl`,
+`releaseUrl` and `minecraftVersions` derived from the same release data. Alpha.3
+uses `https://hrajtymc.github.io/HrajtyMC/updates.json` by default, offers a manual
+download for compatible updates, and preserves custom feeds or disabled checks.
+Original alpha.2 installations need a manual upgrade; see the public Updating
+guide. The installer's version catalog reads GitHub releases and their attached
+`hrajtymc-release.json` manifests independently of the website deployment.
 
 ## Deployment
 

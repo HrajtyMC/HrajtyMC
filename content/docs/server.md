@@ -4,14 +4,16 @@ description: Install and run a Windows server with the same HrajtyMC installer.
 section: Getting started
 ---
 
-Use the HrajtyMC installer for both players and dedicated servers. This release
+Use the HrajtyMC `0.1.0-alpha.3` installer for both players and dedicated servers. This release
 targets **Minecraft Java 26.3**, **Windows** and **64-bit Java 25**.
 
 ## Install
 
 1. Download the installer from the [download page](/HrajtyMC/download/).
 2. Open it with Java and select **Server**.
-3. Choose a dedicated server folder, separate from your client game folder.
+3. Keep the bundled loader release or choose another offered GitHub release,
+   then select a compatible Minecraft version and a dedicated server folder,
+   separate from your client game folder. Current support is **26.3**.
 4. Select **Install** and wait for completion.
 5. Read the Minecraft EULA linked in the generated `eula.txt`. If you agree, set
    `eula=true` yourself.
@@ -20,6 +22,12 @@ targets **Minecraft Java 26.3**, **Windows** and **64-bit Java 25**.
 
 The installer leaves a new EULA file set to `false` and preserves an existing
 file. The server stops before starting a world until you accept the EULA.
+
+The loader selection defaults to the version bundled with the installer, rather
+than automatically choosing the newest release. Its Minecraft options follow
+the selected release's compatibility. If the GitHub catalog is unavailable, the
+bundled loader remains selectable; Mojang metadata and missing server files
+still require an internet connection.
 
 ## Server files
 
@@ -51,7 +59,7 @@ from shared mods. See [mod metadata](../mod-metadata/) for environment rules.
 ## Command-line installation
 
 ```powershell
-java -jar .\HrajtyMC-Installer-0.1.0-alpha.2.jar --server --directory "C:\Games\HrajtyMC-Server"
+java -jar .\HrajtyMC-Installer-0.1.0-alpha.3.jar --server --directory "C:\Games\HrajtyMC-Server"
 ```
 
 Run the installer again to update server files. Existing worlds, mods,

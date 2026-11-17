@@ -13,6 +13,10 @@ const esc = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<'
 const url = value => base + value.replace(/^\/+/, '');
 const asset = value => url('assets/' + value);
 const download = id => release.downloads.find(item => item.id === id);
+const releasePageUrl = value => value.releaseUrl || `https://github.com/${value.repository}/releases/tag/${value.tag}`;
+const supportedMinecraftVersions = value => value.minecraftVersions || [String(value.minecraft)];
+const releaseBadge = release.version.match(/-alpha\.(\d+)(?:[.+-]|$)/)?.[1];
+const versionLabel = releaseBadge ? `α${releaseBadge}` : release.version;
 const icon = (name, size = 20) => {
   const paths = {
     arrow: '<path d="M5 12h14m-6-6 6 6-6 6"/>',
@@ -93,8 +97,63 @@ function downloadPage() {
   return shell({ title: 'Download', description: `Download HrajtyMC ${release.version} for Minecraft ${release.minecraft}, plus the Ruby Example and public mod development SDK.`, route: 'download/', active: 'download', body: `<main id="main-content" class="container download-main"><div class="page-intro"><span class="eyebrow">YOUR NEXT WORLD STARTS HERE</span><h1>Get HrajtyMC<span class="green-dot">.</span></h1><p>A small download. A new place for your ideas.</p></div><section class="download-feature" aria-labelledby="installer-heading"><div class="download-feature-copy"><span class="release-pill"><span class="status-dot"></span>EARLY ALPHA <strong>${esc(release.version)}</strong></span><h2 id="installer-heading">HrajtyMC Installer</h2><p>One installer for your Minecraft client and dedicated server. Choose your folder, choose your mode, and make yourself at home.</p><div class="requirement-list"><span>Minecraft <strong>${esc(release.minecraft)}</strong></span><span>Java <strong>${release.java}</strong></span><span><strong>Windows</strong></span></div><a class="button button-large" data-download="installer" href="${installer.url}">${icon('download')}Download installer <span class="download-size">${humanSize(installer.size)}</span></a><p class="download-filename">${esc(installer.filename)}</p><a class="inline-link" href="${url('docs/installation/')}">Need a hand? Read the install guide ${icon('arrow', 16)}</a></div><div class="installer-visual"><img src="${asset('brand/logo.svg')}" width="70" height="70" alt="HrajtyMC logo"><h3>HrajtyMC Installer</h3><div class="mock-tabs"><span class="selected">Client</span><span>Server</span></div><div class="mock-field"><span>Minecraft</span><strong>${esc(release.minecraft)}</strong></div><div class="mock-field"><span>Loader</span><strong>${esc(release.version)}</strong></div><div class="mock-check">${icon('check', 15)}Create launcher profile</div><div class="mock-install">Install</div><p>Simplified installer preview</p></div></section>
     <div class="alpha-note"><strong>A quick note about alpha.</strong><p>HrajtyMC is an early development release for Minecraft ${esc(release.minecraft)} on Windows. Keep a backup of worlds you care about and try it in a separate instance first. HrajtyMC uses its own mod format.</p></div><section class="download-extras" aria-labelledby="more-downloads"><div class="section-heading"><div><span class="eyebrow">BRING A LITTLE EXTRA</span><h2 id="more-downloads">Try it. Build with it.</h2></div></div><div class="download-list">${[['ruby', 'Ruby Example', 'A ruby, a Ruby Block, and two reversible crafting recipes. Install on client and server.'], ['sdk', 'Mod Development SDK', 'The public API JAR, a Java mod template, and English documentation. A Java 25 JDK is required.'], ['api', 'Standalone API', 'The public API library for your own development setup. Included in the SDK.'], ['loader', 'Loader runtime', 'The standalone Java-agent runtime for advanced setups. Most players should use the installer.']].map(([id, title, text]) => { const d = download(id); return `<article class="download-row"><div class="download-row-icon">${icon(id === 'ruby' ? 'book' : 'code', 24)}</div><div><h3>${title}</h3><p>${text}</p><span class="file-meta">${esc(d.filename)} · ${humanSize(d.size)}</span></div><a class="button button-secondary" data-download="${id}" href="${d.url}" aria-label="Download ${title}">Download ${icon('download', 16)}</a></article>`; }).join('')}</div><div class="download-links"><a href="${release.checksumsUrl}">SHA-256 checksums ${icon('external', 14)}</a><a href="${url('changelog/')}">Release notes ${icon('arrow', 14)}</a><a href="https://github.com/HrajtyMC/HrajtyMC/releases">All GitHub releases ${icon('external', 14)}</a></div></section></main>` });
 }
+const releaseNotes = [
+  {
+    version: '0.1.0-alpha.3',
+    date: '2026-11-17',
+    summary: 'Choose your release, keep your defaults, and update on your own terms.',
+    sections: [
+      ['Installer', [
+        'Choose available HrajtyMC versions from the official GitHub release catalog.',
+        'The downloaded installer keeps its bundled version selected by default; catalog loading does not automatically select the latest release.',
+        'Minecraft choices follow the selected release’s compatibility. Current supported compatibility remains Minecraft 26.3.',
+        'If the catalog is unavailable, the bundled loader stays available. Mojang metadata and missing game files still require an internet connection.'
+      ]],
+      ['Manual updates', [
+        'Use Check for updates to check the running installer. An up-to-date result does not repeatedly offer the same download.',
+        'A newer installer is opened for download only when you choose the download action. It is never launched automatically.',
+        'An update check does not replace the running installer or change its selected installation target.'
+      ]],
+      ['Runtime notifications', [
+        'New installations use the official runtime update feed.',
+        'Upgrading migrates an empty default feed URL while preserving custom URLs and explicitly disabled checks.',
+        'Game notifications continue to announce releases; installing an update remains manual.'
+      ]]
+    ]
+  },
+  {
+    version: '0.1.0-alpha.2',
+    date: '2026-11-17',
+    summary: 'JSON recipes, a smoother start, and a little more HrajtyMC in your launcher.',
+    sections: [
+      ['New', [
+        'Write recipes in hrajtymc/recipes/*.json using HrajtyMC’s own format.',
+        'Discover recipes in the recipe book when you obtain an ingredient.',
+        'Your launcher profile gets the green-and-white HrajtyMC logo, including when upgrading an existing profile.'
+      ]],
+      ['Fixed', [
+        'Mod data packs are available during the initial Create World data load, so the game finds and crafts the Ruby recipes.',
+        'The Ruby Example declares its two recipes in JSON.'
+      ]]
+    ]
+  }
+];
 function changelogPage() {
-  return shell({ title: 'Changelog', description: 'Follow HrajtyMC releases, fixes, and changes.', route: 'changelog/', active: 'changelog', body: `<main id="main-content" class="container narrow-page"><div class="page-intro"><span class="eyebrow">BUILT ONE STEP AT A TIME</span><h1>What’s new<span class="green-dot">.</span></h1><p>The small changes that move HrajtyMC forward.</p></div><article class="release-entry"><div class="release-entry-meta"><span class="release-pill"><span class="status-dot"></span>Latest alpha</span><time datetime="2026-11-17">November 17, 2026</time></div><h2>${esc(release.version)}</h2><p class="release-summary">JSON recipes, a smoother start, and a little more HrajtyMC in your launcher.</p><h3>New</h3><ul><li>Write recipes in <code>hrajtymc/recipes/*.json</code> using HrajtyMC’s own format.</li><li>Discover recipes in the recipe book when you obtain an ingredient.</li><li>Your launcher profile now gets the green-and-white HrajtyMC logo, including when upgrading an existing profile.</li></ul><h3>Fixed</h3><ul><li>Mod data packs are now available during the initial Create World data load, so the game finds and crafts the Ruby recipes.</li><li>The Ruby Example now declares its two recipes in JSON.</li></ul><h3>For developers</h3><p>Java recipe registration remains compatible. The current JSON format supports shaped and shapeless crafting with exact item IDs. Read the <a href="${url('docs/json-recipes/')}">JSON recipe guide</a> to get started.</p><div class="release-actions"><a class="button" href="${url('download/')}">Download this release ${icon('download', 16)}</a><a class="inline-link" href="https://github.com/HrajtyMC/HrajtyMC/releases/tag/${release.tag}">View on GitHub ${icon('external', 14)}</a></div></article></main>` });
+  const currentIndex = releaseNotes.findIndex(entry => entry.version === release.version);
+  // Never label an unpublished future entry as the release described by the data.
+  const entries = currentIndex >= 0 ? releaseNotes.slice(currentIndex) : [{
+    version: release.version,
+    summary: 'See the official GitHub release for this version’s changes and compatibility.',
+    sections: []
+  }];
+  const articles = entries.map((entry, index) => {
+    const current = index === 0;
+    const releaseUrl = current ? releasePageUrl(release) : `https://github.com/${release.repository}/releases/tag/v${entry.version}`;
+    const date = entry.date ? `<time datetime="${esc(entry.date)}">${esc(new Date(`${entry.date}T00:00:00Z`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }))}</time>` : '';
+    const sections = entry.sections.map(([title, changes]) => `<h3>${esc(title)}</h3><ul>${changes.map(change => `<li>${esc(change)}</li>`).join('')}</ul>`).join('');
+    return `<article class="release-entry"><div class="release-entry-meta"><span class="release-pill"><span class="status-dot"></span>${current ? 'Current release' : 'Previous release'}</span>${date}</div><h2>${esc(entry.version)}</h2><p class="release-summary">${esc(entry.summary)}</p>${sections}<h3>For developers</h3><p>Java recipe registration remains compatible. The current JSON format supports shaped and shapeless crafting with exact item IDs. Read the <a href="${url('docs/json-recipes/')}">JSON recipe guide</a> to get started.</p><div class="release-actions">${current ? `<a class="button" href="${url('download/')}">Download this release ${icon('download', 16)}</a>` : ''}<a class="inline-link" href="${esc(releaseUrl)}">View on GitHub ${icon('external', 14)}</a></div></article>`;
+  }).join('');
+  return shell({ title: 'Changelog', description: 'Follow HrajtyMC releases, fixes, and changes.', route: 'changelog/', active: 'changelog', body: `<main id="main-content" class="container narrow-page"><div class="page-intro"><span class="eyebrow">BUILT ONE STEP AT A TIME</span><h1>What’s new<span class="green-dot">.</span></h1><p>The small changes that move HrajtyMC forward.</p></div>${articles}</main>` });
 }
 
 function parseFrontmatter(text) {
@@ -108,7 +167,7 @@ function parseFrontmatter(text) {
   return { meta, markdown: text.slice(match[0].length) };
 }
 function sidebar(current) {
-  return `<aside class="docs-sidebar" id="docs-sidebar" aria-label="Documentation navigation"><a class="docs-home" href="${url('docs/overview/')}">${icon('book', 19)}Documentation<span class="version-label">α2</span></a><nav>${nav.map(([section, pages]) => `<div class="sidebar-group"><h2>${section}</h2>${pages.map(([slug, title]) => `<a ${current === slug ? 'aria-current="page"' : ''} href="${url('docs/' + slug + '/')}">${title}</a>`).join('')}</div>`).join('')}</nav><div class="sidebar-bottom"><span>Minecraft ${esc(release.minecraft)}</span><span>Java ${release.java} · Windows</span><a href="${url('download/')}">Get the latest alpha ${icon('arrow', 14)}</a></div></aside>`;
+  return `<aside class="docs-sidebar" id="docs-sidebar" aria-label="Documentation navigation"><a class="docs-home" href="${url('docs/overview/')}">${icon('book', 19)}Documentation<span class="version-label">${esc(versionLabel)}</span></a><nav>${nav.map(([section, pages]) => `<div class="sidebar-group"><h2>${section}</h2>${pages.map(([slug, title]) => `<a ${current === slug ? 'aria-current="page"' : ''} href="${url('docs/' + slug + '/')}">${title}</a>`).join('')}</div>`).join('')}</nav><div class="sidebar-bottom"><span>Minecraft ${esc(release.minecraft)}</span><span>Java ${release.java} · Windows</span><a href="${url('download/')}">Get the latest alpha ${icon('arrow', 14)}</a></div></aside>`;
 }
 async function documentation() {
   const ordered = nav.flatMap(([, pages]) => pages);
@@ -153,7 +212,12 @@ await write('docs/index.html', `<!doctype html><html lang="en"><head><meta chars
 await write('404.html', shell({ title: 'Page not found', description: 'This HrajtyMC page could not be found.', route: '404.html', noindex: true, body: `<main id="main-content" class="container error-page"><span class="eyebrow">404 · A BLOCK OUT OF PLACE</span><h1>Let’s get you<br>back on track.</h1><p>This page may have moved, or the link needs another look.</p><div class="hero-actions"><a class="button" href="${base}">Back to home ${icon('arrow')}</a><a class="text-button" href="${url('docs/overview/')}">Read the docs</a></div></main>` }));
 await write('search-index.json', JSON.stringify(searchEntries));
 await write('release.json', JSON.stringify(release, null, 2));
-await write('updates.json', JSON.stringify({ version: release.version }, null, 2));
+await write('updates.json', JSON.stringify({
+  version: release.version,
+  installerUrl: download('installer').url,
+  releaseUrl: releasePageUrl(release),
+  minecraftVersions: supportedMinecraftVersions(release)
+}, null, 2));
 await write('.nojekyll', '');
 const routes = ['', 'download/', 'changelog/', ...nav.flatMap(([, pages]) => pages.map(([slug]) => `docs/${slug}/`))];
 await write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map(route => `<url><loc>${origin + url(route)}</loc></url>`).join('')}</urlset>`);

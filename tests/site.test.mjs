@@ -10,9 +10,10 @@ const siteRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const outputRoot = join(siteRoot, 'dist');
 const origin = 'https://hrajtymc.github.io';
 const basePath = `/${(process.env.BASE_PATH ?? '/HrajtyMC/').replace(/^\/+|\/+$/g, '')}/`.replace(/^\/\/$/, '/');
-const version = '0.1.0-alpha.2';
+const sourceRelease = JSON.parse(await readFile(join(siteRoot, 'data/release.json'), 'utf8'));
+const version = sourceRelease.version;
 const tag = `v${version}`;
-const releaseBase = `https://github.com/HrajtyMC/HrajtyMC/releases/download/${tag}/`;
+const releaseBase = `https://github.com/${sourceRelease.repository}/releases/download/${tag}/`;
 const expectedAssets = new Map([
   ['installer', `HrajtyMC-Installer-${version}.jar`],
   ['ruby', 'ruby-example-1.0.0.jar'],
@@ -173,10 +174,12 @@ test('documentation code examples have native, accessible copy controls', async 
   assert.ok(totalExamples >= 5, 'Expected useful runnable documentation examples');
 });
 
-test('release metadata contains only the five explicit alpha.2 binary downloads', async () => {
+test('release metadata contains the versioned public binary downloads', async () => {
   const release = await releaseMetadata();
+  assert.deepEqual(release, sourceRelease, 'Build output must reflect data/release.json; rebuild after updating release data');
   assert.equal(release.version, version);
   assert.equal(release.tag, tag);
+  assert.equal(release.repository, 'HrajtyMC/HrajtyMC');
   assert.equal(String(release.minecraft), '26.3');
   assert.equal(Number(release.java), 25);
   assert.equal(release.platform, 'Windows');
@@ -201,8 +204,17 @@ test('release metadata contains only the five explicit alpha.2 binary downloads'
 test('the update feed announces exactly the public release and the search index links to real pages', async () => {
   const release = await releaseMetadata();
   const feed = JSON.parse(await readFile(join(outputRoot, 'updates.json'), 'utf8'));
-  assert.equal(feed.version, release.version);
+  assert.deepEqual(feed, {
+    version: release.version,
+    installerUrl: release.downloads.find(asset => asset.id === 'installer').url,
+    releaseUrl: release.releaseUrl || `https://github.com/${release.repository}/releases/tag/${release.tag}`,
+    minecraftVersions: release.minecraftVersions || [String(release.minecraft)]
+  }, 'Update discovery must expose the selected release, official installer, release page, and declared Minecraft compatibility');
   assert.match(feed.version, /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$/);
+  assert.equal(feed.installerUrl, releaseBase + encodeURIComponent(expectedAssets.get('installer')));
+  assert.equal(feed.releaseUrl, `https://github.com/HrajtyMC/HrajtyMC/releases/tag/${tag}`);
+  assert.ok(Array.isArray(feed.minecraftVersions) && feed.minecraftVersions.length > 0, 'The update feed needs declared Minecraft versions');
+  assert.ok(feed.minecraftVersions.every(value => typeof value === 'string' && value.trim()), 'Minecraft compatibility entries must be version strings');
   const index = JSON.parse(await readFile(join(outputRoot, 'search-index.json'), 'utf8'));
   const entries = Array.isArray(index) ? index : index.pages ?? index.documents;
   assert.ok(Array.isArray(entries) && entries.length >= 11, 'Documentation search index is empty or incomplete');
@@ -211,6 +223,33 @@ test('the update feed announces exactly the public release and the search index 
     const link = entry.url ?? entry.href ?? entry.path;
     assert.ok(typeof link === 'string' && link.trim(), `Search entry has no destination: ${entry.title}`);
     await checkReference(link, join(outputRoot, 'index.html'), { fragment: true });
+  }
+});
+
+test('documentation version badges follow the configured release', async () => {
+  const alpha = version.match(/-alpha\.(\d+)(?:[.+-]|$)/)?.[1];
+  const expected = alpha ? `α${alpha}` : version;
+  const pages = (await walk(join(outputRoot, 'docs'))).filter(path => path.endsWith('index.html') && slash(relative(join(outputRoot, 'docs'), path)) !== 'index.html');
+  assert.ok(pages.length >= 11);
+  for (const path of pages) {
+    const { html } = await htmlDocument(path);
+    const labels = [...html.matchAll(/<span\b[^>]*class="version-label"[^>]*>([\s\S]*?)<\/span>/g)];
+    assert.equal(labels.length, 1, `One release badge is required in ${relative(outputRoot, path)}`);
+    assert.equal(textContent(labels[0][1]), expected, `Outdated release badge in ${relative(outputRoot, path)}`);
+  }
+});
+
+test('changelog describes the configured release and retains published history', async () => {
+  const { html } = await htmlDocument(join(outputRoot, 'changelog/index.html'));
+  const currentHeading = html.match(/<article\b[^>]*class="release-entry"[^>]*>[\s\S]*?<h2>([\s\S]*?)<\/h2>/)?.[1];
+  assert.equal(textContent(currentHeading ?? ''), version, 'The first changelog entry must match release metadata');
+  if (version === '0.1.0-alpha.3') {
+    for (const feature of ['GitHub release catalog', 'bundled version selected by default', 'Check for updates', 'official runtime update feed']) {
+      assert.ok(textContent(html).includes(feature), `Alpha.3 changelog is missing ${feature}`);
+    }
+    assert.ok(html.includes('<h2>0.1.0-alpha.2</h2>'), 'Published alpha.2 history must remain available');
+  } else if (version === '0.1.0-alpha.2') {
+    assert.ok(!html.includes('<h2>0.1.0-alpha.3</h2>'), 'Do not announce an unreleased alpha.3 while release data still points to alpha.2');
   }
 });
 

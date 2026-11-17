@@ -4,7 +4,7 @@ description: Resolve installation, mod-loading, rendering and crafting problems.
 section: Reference
 ---
 
-Start by checking the versions involved: **HrajtyMC 0.1.0-alpha.2**, **Minecraft
+Start by checking the versions involved: **HrajtyMC 0.1.0-alpha.3**, **Minecraft
 Java 26.3**, **Windows**, and **64-bit Java 25** are this release's target.
 
 ## The installer JAR does not open
@@ -13,12 +13,24 @@ Run it from a terminal to see the error:
 
 ```powershell
 java --version
-java -jar .\HrajtyMC-Installer-0.1.0-alpha.2.jar
+java -jar .\HrajtyMC-Installer-0.1.0-alpha.3.jar
 ```
 
 If another application opens the JAR, use the command above. Ensure the terminal
 selects Java 25 or newer. For mod builds, `javac -version` must also report a
 suitable JDK.
+
+## A GitHub release or Minecraft version is missing
+
+The installer starts with its own bundled loader version selected. Loading the
+catalog does not switch it to the newest release. Other offered versions need
+valid installation metadata from the official GitHub catalog.
+
+If that catalog is unreachable, the bundled loader remains available. Installation
+still needs internet access for Mojang metadata and missing game files; this
+fallback is not a fully offline installation mode. The Minecraft selector shows
+only the chosen release's declared compatibility. Current support remains
+**26.3**.
 
 ## The launcher profile is missing
 
@@ -73,7 +85,14 @@ versions with the connecting clients. Follow [Dedicated server](../server/).
 
 ## No update notification appears
 
-An empty `updates.url` is unconfigured, and the original alpha.2 installer leaves
-it empty. Follow [Updating](../updating/) to add the public feed. Equal versions
-do not produce a notification, and network failures are logged without blocking
-the game.
+New alpha.3 installations use the public feed. An alpha.3 upgrade migrates an
+empty default URL left by the original alpha.2 installer, while preserving a
+custom URL and explicitly disabled checks. Check `config/hrajtymc.properties`:
+`updates.enabled=false` keeps notifications off. Equal versions do not produce
+an update notice, and network failures are logged without blocking the game.
+
+The installer's **Check for updates** compares the running installer with
+available versions. An **Up to date** result does not change an older loader
+target you selected for installation. A newer installer is only opened for
+download when you choose the download action, and you run it yourself. See
+[Updating](../updating/) for both update flows.

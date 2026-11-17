@@ -12,7 +12,7 @@ files for crafting recipes.
 
 | Component | Target |
 |---|---|
-| HrajtyMC | `0.1.0-alpha.2` |
+| HrajtyMC | `0.1.0-alpha.3` |
 | Minecraft Java Edition | `26.3` |
 | Operating system | Windows |
 | Runtime | 64-bit Java 25 |
@@ -28,6 +28,11 @@ Start with [client installation](../installation/), or use the same installer to
 [set up a dedicated server](../server/). Add compatible mod JARs to the instance's
 `mods` folder, then restart the game. The **Mods** screen shows each loaded mod's
 name, version, author and description.
+
+The installer selects its own bundled version by default. You can choose another
+offered GitHub release; Minecraft choices are filtered to that release's actual
+compatibility. Updates remain manual. Read [Updating](../updating/) for the
+installer check and in-game notifications.
 
 The Ruby Example adds a ruby, a ruby block and reversible crafting recipes. Find
 rubies in the creative **Ingredients** tab and blocks in **Building Blocks**;
