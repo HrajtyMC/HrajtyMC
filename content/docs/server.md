@@ -4,7 +4,7 @@ description: Install and run a Windows server with the same HrajtyMC installer.
 section: Getting started
 ---
 
-Use the HrajtyMC `0.1.0-alpha.3` installer for both players and dedicated servers. This release
+Use the HrajtyMC `0.1.0-alpha.4` installer for both players and dedicated servers. This release
 targets **Minecraft Java 26.3**, **Windows** and **64-bit Java 25**.
 
 ## Install
@@ -53,13 +53,18 @@ Shared content mods use `environment: "both"`. Install the same shared mod
 versions on the server and its clients. Client-only mods belong on players'
 machines; server-only mods belong on the dedicated server.
 
+Alpha.4 uses login protocol 2. Use matching alpha.4 loaders on both peers; older
+mod JARs can still use their supported item/block/recipe APIs. The new play
+networking API is for shared mods; events, commands and world data run on the
+logical server. See [Gameplay API](../gameplay-api/).
+
 The current public content API allows item, block and recipe registration only
 from shared mods. See [mod metadata](../mod-metadata/) for environment rules.
 
 ## Command-line installation
 
 ```powershell
-java -jar .\HrajtyMC-Installer-0.1.0-alpha.3.jar --server --directory "C:\Games\HrajtyMC-Server"
+java -jar .\HrajtyMC-Installer-0.1.0-alpha.4.jar --server --directory "C:\Games\HrajtyMC-Server"
 ```
 
 Run the installer again to update server files. Existing worlds, mods,

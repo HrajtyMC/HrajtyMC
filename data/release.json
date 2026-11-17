@@ -1,6 +1,6 @@
 {
-  "version": "0.1.0-alpha.3",
-  "tag": "v0.1.0-alpha.3",
+  "version": "0.1.0-alpha.4",
+  "tag": "v0.1.0-alpha.4",
   "minecraft": "26.3",
   "java": 25,
   "platform": "Windows",
@@ -9,43 +9,43 @@
     {
       "id": "installer",
       "name": "HrajtyMC Installer",
-      "filename": "HrajtyMC-Installer-0.1.0-alpha.3.jar",
-      "url": "https://github.com/HrajtyMC/HrajtyMC/releases/download/v0.1.0-alpha.3/HrajtyMC-Installer-0.1.0-alpha.3.jar",
-      "sha256": "fabb56920c6d450a432441a7554dfd9a6f47dec0450311c5f7cd5c3119cbf151",
-      "size": 910038
+      "filename": "HrajtyMC-Installer-0.1.0-alpha.4.jar",
+      "url": "https://github.com/HrajtyMC/HrajtyMC/releases/download/v0.1.0-alpha.4/HrajtyMC-Installer-0.1.0-alpha.4.jar",
+      "sha256": "bcfe9be27839990a78a6b257336c4126d18d07f93294fba603374255020ed721",
+      "size": 975208
     },
     {
       "id": "ruby",
       "name": "Ruby Example",
-      "filename": "ruby-example-1.0.0.jar",
-      "url": "https://github.com/HrajtyMC/HrajtyMC/releases/download/v0.1.0-alpha.3/ruby-example-1.0.0.jar",
-      "sha256": "e9c9e3a10d85091565a3ef80d03b6ca5f8e9a0f7c23f23dc1ed547474ba08f09",
-      "size": 7529
+      "filename": "ruby-example-1.1.0.jar",
+      "url": "https://github.com/HrajtyMC/HrajtyMC/releases/download/v0.1.0-alpha.4/ruby-example-1.1.0.jar",
+      "sha256": "c11505ec2d329254fafc8e4ee6ec6407d016aa6ceb318ac51a033a9eef4df0f9",
+      "size": 12618
     },
     {
       "id": "sdk",
       "name": "Mod Development SDK",
       "filename": "HrajtyMC-Mod-SDK.zip",
-      "url": "https://github.com/HrajtyMC/HrajtyMC/releases/download/v0.1.0-alpha.3/HrajtyMC-Mod-SDK.zip",
-      "sha256": "33f014390a89abf9064bb1fe21a4d168e8da932492e250847d2246652eeae6e9",
-      "size": 33703
+      "url": "https://github.com/HrajtyMC/HrajtyMC/releases/download/v0.1.0-alpha.4/HrajtyMC-Mod-SDK.zip",
+      "sha256": "fe8de2f29f7928851e31e3d0cac2dfa4d37704bd595e1eb449a783daa4244eeb",
+      "size": 67620
     },
     {
       "id": "api",
       "name": "Public API",
       "filename": "hrajtymc-api.jar",
-      "url": "https://github.com/HrajtyMC/HrajtyMC/releases/download/v0.1.0-alpha.3/hrajtymc-api.jar",
-      "sha256": "b081b034c62b5f2417f56c842920dde95d222422408017c2742374b8007eced7",
-      "size": 9711
+      "url": "https://github.com/HrajtyMC/HrajtyMC/releases/download/v0.1.0-alpha.4/hrajtymc-api.jar",
+      "sha256": "4f167c26f21a5d4a5974a93e068e39a7ea53f65715d7d9c7d7351b4c9fe755b4",
+      "size": 24689
     },
     {
       "id": "loader",
       "name": "Loader runtime",
       "filename": "hrajtymc-loader.jar",
-      "url": "https://github.com/HrajtyMC/HrajtyMC/releases/download/v0.1.0-alpha.3/hrajtymc-loader.jar",
-      "sha256": "7c348e1b2bbd96a536516e02e8be9facf34bf1f0c6894d24a02217e823953c8b",
-      "size": 579393
+      "url": "https://github.com/HrajtyMC/HrajtyMC/releases/download/v0.1.0-alpha.4/hrajtymc-loader.jar",
+      "sha256": "6926c2a4201da5f9e911bcab88a4a9bc6648278332b5849e0979537fac048d6a",
+      "size": 653189
     }
   ],
-  "checksumsUrl": "https://github.com/HrajtyMC/HrajtyMC/releases/download/v0.1.0-alpha.3/SHA256SUMS.txt"
+  "checksumsUrl": "https://github.com/HrajtyMC/HrajtyMC/releases/download/v0.1.0-alpha.4/SHA256SUMS.txt"
 }

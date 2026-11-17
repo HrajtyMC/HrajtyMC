@@ -87,3 +87,7 @@ classes inside the mod JAR.
 Next, [register items and blocks](../items-and-blocks/) and add
 [JSON recipes](../json-recipes/). The unmodified template contains no gameplay
 content or recipes; it is a small working starting point.
+
+To add events, commands, persistent records, networking or item use, follow the
+[Gameplay API guide](../gameplay-api/) and require `>=0.1.0-alpha.4` in metadata.
+The SDK's `examples/ruby/` contains a complete buildable example of these services.

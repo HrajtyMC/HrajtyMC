@@ -4,7 +4,7 @@ description: Add HrajtyMC to the Minecraft Launcher and install compatible mods.
 section: Getting started
 ---
 
-HrajtyMC `0.1.0-alpha.3` targets **Minecraft Java 26.3 on Windows**. Install a
+HrajtyMC `0.1.0-alpha.4` targets **Minecraft Java 26.3 on Windows**. Install a
 64-bit Java 25 runtime before opening the installer. Mod authors need a JDK,
 which also supplies the Java compiler.
 
@@ -15,7 +15,7 @@ with Java, or run it in the folder containing the downloaded file:
 
 ```powershell
 java --version
-java -jar .\HrajtyMC-Installer-0.1.0-alpha.3.jar
+java -jar .\HrajtyMC-Installer-0.1.0-alpha.4.jar
 ```
 
 If Windows opens the JAR as an archive, use the terminal command above. Java
@@ -24,7 +24,7 @@ If Windows opens the JAR as an archive, use the terminal command above. Java
 ## Choose a release
 
 The loader selector starts with the version bundled in the installer you opened.
-An alpha.3 installer starts with alpha.3 selected, even if a newer GitHub release
+An alpha.4 installer starts with alpha.4 selected, even if a newer GitHub release
 exists. Loading the catalog does not automatically switch you to the latest
 version.
 
@@ -42,7 +42,7 @@ fallback is not a fully offline Minecraft installation mode.
 
 1. Close the Minecraft Launcher.
 2. Select **Client** in the HrajtyMC installer.
-3. Keep the bundled HrajtyMC **0.1.0-alpha.3**, or choose another offered release,
+3. Keep the bundled HrajtyMC **0.1.0-alpha.4**, or choose another offered release,
    then select a compatible Minecraft version. Current support is **26.3**.
 4. Choose your Minecraft installation folder. The usual Windows location is
    `%APPDATA%\.minecraft`.
@@ -75,7 +75,7 @@ also be installed on the dedicated server you join.
 ## Command-line installation
 
 ```powershell
-java -jar .\HrajtyMC-Installer-0.1.0-alpha.3.jar --client --directory "$env:APPDATA\.minecraft"
+java -jar .\HrajtyMC-Installer-0.1.0-alpha.4.jar --client --directory "$env:APPDATA\.minecraft"
 ```
 
 Add `--no-profile` if you want to manage the launcher profile yourself.
@@ -86,7 +86,7 @@ The installer's **Check for updates** action checks for a newer installer.
 Opening an offered download requires your explicit action, and you run the new
 JAR yourself. The check does not replace the running installer or change its
 selected installation target. See [Updating](../updating/) for details and the
-runtime notification settings enabled by new alpha.3 installations.
+runtime notification settings enabled by new alpha.4 installations.
 
 Need a server? Follow [Dedicated server](../server/). If installation fails,
 use [Troubleshooting](../troubleshooting/) before retrying.

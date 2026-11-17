@@ -4,7 +4,7 @@ description: Resolve installation, mod-loading, rendering and crafting problems.
 section: Reference
 ---
 
-Start by checking the versions involved: **HrajtyMC 0.1.0-alpha.3**, **Minecraft
+Start by checking the versions involved: **HrajtyMC 0.1.0-alpha.4**, **Minecraft
 Java 26.3**, **Windows**, and **64-bit Java 25** are this release's target.
 
 ## The installer JAR does not open
@@ -13,7 +13,7 @@ Run it from a terminal to see the error:
 
 ```powershell
 java --version
-java -jar .\HrajtyMC-Installer-0.1.0-alpha.3.jar
+java -jar .\HrajtyMC-Installer-0.1.0-alpha.4.jar
 ```
 
 If another application opens the JAR, use the command above. Ensure the terminal
@@ -85,7 +85,7 @@ versions with the connecting clients. Follow [Dedicated server](../server/).
 
 ## No update notification appears
 
-New alpha.3 installations use the public feed. An alpha.3 upgrade migrates an
+New alpha.4 installations use the public feed. An alpha.4 upgrade migrates an
 empty default URL left by the original alpha.2 installer, while preserving a
 custom URL and explicitly disabled checks. Check `config/hrajtymc.properties`:
 `updates.enabled=false` keeps notifications off. Equal versions do not produce
@@ -96,3 +96,17 @@ available versions. An **Up to date** result does not change an older loader
 target you selected for installation. A newer installer is only opened for
 download when you choose the download action, and you run it yourself. See
 [Updating](../updating/) for both update flows.
+
+## Gameplay API errors
+
+New gameplay services require `hrajtymc >=0.1.0-alpha.4`. Register listeners,
+commands, network receivers and item handlers during `onInitialize`; registering
+them later is rejected. Obtain `context.data()` at initialization, but access
+`world()` and `player()` from server callbacks once a world is active. Data views
+belong to that world and its server thread.
+
+Play channels require a shared `environment: "both"` mod and matching alpha.4
+loaders on client and server. Payloads are bounded and directions are declared;
+messages do not supply their own player identity. See the
+[Gameplay API guide](../gameplay-api/) for limits and examples. Replace an older
+Ruby Example JAR when installing 1.1.0, so only one `ruby` mod remains in `mods`.

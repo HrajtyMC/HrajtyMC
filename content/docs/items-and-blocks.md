@@ -110,3 +110,7 @@ To make the block drop itself, add
 HrajtyMC mounts these resources automatically. Restart the game after rebuilding
 the mod, and test placement, breaking and save/reload behavior in a test world.
 Next, add [JSON crafting recipes](../json-recipes/) for your content.
+
+Alpha.4 also supports `ItemDefinition.withDurability`, `withFood` and
+server-authoritative `context.itemBehaviors().onUse` handlers. See the
+[gameplay guide](../gameplay-api/#item-properties-and-use-behavior) for the full lifecycle and examples.

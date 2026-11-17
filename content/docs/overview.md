@@ -12,14 +12,15 @@ files for crafting recipes.
 
 | Component | Target |
 |---|---|
-| HrajtyMC | `0.1.0-alpha.3` |
+| HrajtyMC | `0.1.0-alpha.4` |
 | Minecraft Java Edition | `26.3` |
 | Operating system | Windows |
 | Runtime | 64-bit Java 25 |
 | Mod development | Java 25 JDK and the public API JAR |
 
-This is an alpha release. Its current public API covers plain items, solid cube
-blocks, and shaped or shapeless crafting recipes. Test mods in a separate game
+This alpha release supports items, solid blocks and crafting recipes, plus
+experimental gameplay services for events, commands, persistent world/player
+data, custom item use and client/server messages. Test mods in a separate game
 instance before using them with an existing world.
 
 ## For players
@@ -34,9 +35,10 @@ offered GitHub release; Minecraft choices are filtered to that release's actual
 compatibility. Updates remain manual. Read [Updating](../updating/) for the
 installer check and in-game notifications.
 
-The Ruby Example adds a ruby, a ruby block and reversible crafting recipes. Find
-rubies in the creative **Ingredients** tab and blocks in **Building Blocks**;
-both also appear in creative **Search**. Nine rubies need a 3x3 crafting table.
+Ruby Example 1.1.0 adds a ruby, a Ruby Block, a durable Ruby Charm and a Ruby Snack.
+It also demonstrates `/ruby:stats`, `/ruby:ping` and operator-only
+`/ruby:protect on|off`. Find items in **Ingredients** and blocks in **Building
+Blocks**, or use creative **Search**. Its four crafting recipes use HrajtyMC JSON.
 
 ## For mod authors
 
@@ -46,7 +48,9 @@ loader implementation or a private source checkout to develop a mod.
 
 Next, learn about [items and blocks](../items-and-blocks/),
 [JSON recipes](../json-recipes/) and [mod metadata](../mod-metadata/).
-The [API reference](../api-reference/) describes the supported Java types.
+The [gameplay guide](../gameplay-api/) explains the new services, and the
+[API reference](../api-reference/) describes the supported Java types. The SDK
+includes buildable Ruby Example source under `examples/ruby/`.
 
 HrajtyMC loads its own mod format. Existing mods written for a different loader
 need a HrajtyMC-compatible implementation. Additional gameplay APIs, such as mob

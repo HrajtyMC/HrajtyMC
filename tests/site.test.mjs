@@ -16,7 +16,7 @@ const tag = `v${version}`;
 const releaseBase = `https://github.com/${sourceRelease.repository}/releases/download/${tag}/`;
 const expectedAssets = new Map([
   ['installer', `HrajtyMC-Installer-${version}.jar`],
-  ['ruby', 'ruby-example-1.0.0.jar'],
+  ['ruby', 'ruby-example-1.1.0.jar'],
   ['sdk', 'HrajtyMC-Mod-SDK.zip'],
   ['api', 'hrajtymc-api.jar'],
   ['loader', 'hrajtymc-loader.jar'],
@@ -243,7 +243,14 @@ test('changelog describes the configured release and retains published history',
   const { html } = await htmlDocument(join(outputRoot, 'changelog/index.html'));
   const currentHeading = html.match(/<article\b[^>]*class="release-entry"[^>]*>[\s\S]*?<h2>([\s\S]*?)<\/h2>/)?.[1];
   assert.equal(textContent(currentHeading ?? ''), version, 'The first changelog entry must match release metadata');
-  if (version === '0.1.0-alpha.3') {
+  if (version === '0.1.0-alpha.4') {
+    for (const feature of ['cancellable block-break attempts', 'persistent', 'Brigadier', 'Ruby Example 1.1.0', 'login protocol 2'])
+      assert.ok(textContent(html).includes(feature), `Alpha.4 changelog is missing ${feature}`);
+    assert.ok(html.includes('<h2>0.1.0-alpha.3</h2>'), 'Published alpha.3 history must remain available');
+    const { html: guide } = await htmlDocument(join(outputRoot, 'docs/gameplay-api/index.html'));
+    for (const facade of ['context.events()', 'context.commands()', 'context.network()', 'context.data()', 'context.itemBehaviors()'])
+      assert.ok(textContent(guide).includes(facade), `Gameplay guide is missing ${facade}`);
+  } else if (version === '0.1.0-alpha.3') {
     for (const feature of ['GitHub release catalog', 'bundled version selected by default', 'Check for updates', 'official runtime update feed']) {
       assert.ok(textContent(html).includes(feature), `Alpha.3 changelog is missing ${feature}`);
     }
@@ -304,7 +311,7 @@ test('local release assets match the announced hashes and contain no private sou
     const names = zipEntryNames(bytes);
     for (const name of names) {
       assert.ok(!name.includes('\\') && !name.split('/').some(part => part === '..' || part === '.'), `Unsafe packaged path: ${name}`);
-      if (name.endsWith('.java')) assert.match(name, /^mod-template\/src\/main\/java\/.*\/ExampleMod\.java$/, `Private Java source in ${asset.filename}: ${name}`);
+      if (name.endsWith('.java')) assert.match(name, /^(?:mod-template\/src\/main\/java\/.*\/ExampleMod\.java|examples\/ruby\/src\/main\/java\/studio\/hrajto\/ruby\/RubyMod\.java)$/, `Private Java source in ${asset.filename}: ${name}`);
       assert.ok(!/(?:^|\/)(?:\.codex|\.agents|\.aws|saves|world)(?:\/|$)/i.test(name), `Private packaged data in ${asset.filename}: ${name}`);
       if (asset.id === 'sdk' && name.endsWith('.jar')) assert.equal(name, 'hrajtymc-api.jar', 'SDK must expose only the public API JAR');
     }

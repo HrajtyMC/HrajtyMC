@@ -48,6 +48,10 @@ Original alpha.2 installations need a manual upgrade; see the public Updating
 guide. The installer's version catalog reads GitHub releases and their attached
 `hrajtymc-release.json` manifests independently of the website deployment.
 
+The alpha.4 gameplay guide covers events, commands, world/player records,
+networking and item-use behavior. Public SDK source is limited to the mod template
+and the Ruby example; the loader and installer implementations remain private.
+
 ## Deployment
 
 GitHub Actions builds, checks, and deploys `main` to GitHub Pages. The workflow
