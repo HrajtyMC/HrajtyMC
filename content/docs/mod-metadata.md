@@ -19,7 +19,7 @@ edit `src/main/resources/hrajty.mod.json`.
   "entrypoint": "com.example.mymod.ExampleMod",
   "depends": {
     "minecraft": "26.3",
-    "hrajtymc": ">=0.1.0-alpha.2"
+    "hrajtymc": ">=0.1.0-alpha.4"
   }
 }
 ```
@@ -45,22 +45,32 @@ content namespace.
 ## Environments
 
 `both` loads in the player process and dedicated server process. Use it for
-items, blocks and recipes, and install the mod on both sides of multiplayer.
+items, blocks, recipes and play networking, and install the mod on both sides
+of multiplayer.
 
-`client` and `server` select only the corresponding process. In the current
-public API, side-only mods can initialize and log, but cannot register shared
-items, blocks or recipes. Singleplayer runs in `Environment.CLIENT`.
+`client` and `server` select only the corresponding physical process. Side-only
+mods can use the supported event, command and data services when the relevant
+logical server and world are running, but cannot register shared items, blocks
+or recipes, or obtain `context.network()`.
+
+Singleplayer runs in `Environment.CLIENT`, including its integrated logical
+server. A `server`-only mod is skipped there; use `both` for server features that
+should work in singleplayer as well. Read [Events](../events/) and
+[Persistent data](../persistent-data/) for runtime availability and thread rules.
 
 ## Dependencies
 
 Always declare `minecraft` and `hrajtymc`. Add another mod's ID when your mod
-requires it:
+requires it. Merge this `depends` section into the complete metadata above;
+this excerpt shows only that root field:
 
 ```json
-"depends": {
-  "minecraft": "26.3",
-  "hrajtymc": ">=0.1.0-alpha.2",
-  "anothermod": ">=1.0.0 <2.0.0"
+{
+  "depends": {
+    "minecraft": "26.3",
+    "hrajtymc": ">=0.1.0-alpha.4",
+    "anothermod": ">=1.0.0 <2.0.0"
+  }
 }
 ```
 
@@ -70,7 +80,7 @@ Whitespace or a comma combines constraints with AND; `||` means OR. Hyphen
 ranges are unsupported.
 
 Prereleases sort before the matching stable version. `>=0.1.0` does not accept
-`0.1.0-alpha.2`; declare the alpha minimum explicitly for the current release.
+`0.1.0-alpha.4`; declare the alpha minimum explicitly for the current release.
 
 Required dependencies initialize before their dependants. Missing or
 incompatible dependencies, duplicate mod IDs and dependency cycles stop loading
@@ -78,5 +88,8 @@ with a diagnostic. An environment-ineligible mod does not satisfy a dependency
 in that process.
 
 The SDK includes `docs/hrajty-mod.schema.json` for structural editor validation.
+The loader rejects duplicate JSON field names, nesting beyond 32 levels and
+metadata larger than 1 MiB. Keep one metadata file per mod JAR and update the
+entrypoint after renaming a Java class.
 See [Project structure](../project-structure/) for packaging and
 [Troubleshooting](../troubleshooting/) for loading errors.

@@ -91,3 +91,7 @@ content or recipes; it is a small working starting point.
 To add events, commands, persistent records, networking or item use, follow the
 [Gameplay API guide](../gameplay-api/) and require `>=0.1.0-alpha.4` in metadata.
 The SDK's `examples/ruby/` contains a complete buildable example of these services.
+
+For a small first gameplay feature, [create an edible item](../food-and-durability/).
+That tutorial includes the Java class, metadata, item/model files, translation,
+crafting recipe and in-game test steps.

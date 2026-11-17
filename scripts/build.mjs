@@ -33,7 +33,8 @@ const icon = (name, size = 20) => {
 };
 const nav = [
   ['Start here', [['overview', 'Introduction'], ['installation', 'Installation'], ['server', 'Dedicated server']]],
-  ['Create a mod', [['first-mod', 'Your first mod'], ['project-structure', 'Project structure'], ['items-and-blocks', 'Items & blocks'], ['json-recipes', 'JSON recipes'], ['gameplay-api', 'Gameplay API'], ['mod-metadata', 'Mod metadata']]],
+  ['Create a mod', [['first-mod', 'Your first mod'], ['project-structure', 'Project structure'], ['items-and-blocks', 'Items & blocks'], ['json-recipes', 'JSON recipes'], ['mod-metadata', 'Mod metadata']]],
+  ['Gameplay', [['gameplay-api', 'Gameplay overview'], ['food-and-durability', 'Food & durability'], ['item-behaviors', 'Custom item use'], ['events', 'Events & players'], ['commands', 'Commands & permissions'], ['persistent-data', 'Persistent data'], ['play-networking', 'Client/server messages']]],
   ['Reference', [['api-reference', 'API reference'], ['updating', 'Updating'], ['troubleshooting', 'Troubleshooting']]]
 ];
 const searchEntries = [];

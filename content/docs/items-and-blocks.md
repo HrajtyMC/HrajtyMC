@@ -109,8 +109,13 @@ To make the block drop itself, add
 
 HrajtyMC mounts these resources automatically. Restart the game after rebuilding
 the mod, and test placement, breaking and save/reload behavior in a test world.
+The loot example uses Minecraft 26.3's singular `condition` object with a `type`
+field. Keep that version's shape when adapting loot definitions.
 Next, add [JSON crafting recipes](../json-recipes/) for your content.
 
-Alpha.4 also supports `ItemDefinition.withDurability`, `withFood` and
-server-authoritative `context.itemBehaviors().onUse` handlers. See the
-[gameplay guide](../gameplay-api/#item-properties-and-use-behavior) for the full lifecycle and examples.
+Continue with [Food and durability](../food-and-durability/) for a complete
+edible-item mod, hunger/saturation settings and durable-item definitions.
+[Item behaviors](../item-behaviors/) explains server-authoritative right-click
+actions, cooldowns, damage, consumption and the main/off-hand context. The
+[Gameplay API guide](../gameplay-api/) combines those features with commands,
+persistent data, events and networking.

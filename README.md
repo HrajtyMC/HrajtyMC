@@ -52,6 +52,11 @@ The alpha.4 gameplay guide covers events, commands, world/player records,
 networking and item-use behavior. Public SDK source is limited to the mod template
 and the Ruby example; the loader and installer implementations remain private.
 
+The Gameplay navigation group also provides focused food/durability, item-use,
+event, command, persistence and networking tutorials. The API reference covers
+all 32 public API types. Complete tutorial classes compile with the public API
+JAR only, and JSON snippets are checked during documentation review.
+
 ## Deployment
 
 GitHub Actions builds, checks, and deploys `main` to GitHub Pages. The workflow

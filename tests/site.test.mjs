@@ -239,6 +239,33 @@ test('documentation version badges follow the configured release', async () => {
   }
 });
 
+test('focused gameplay guides are in navigation, search and the overview', async () => {
+  const guides = [
+    ['food-and-durability', ['FoodDefinition', 'nutrition', 'saturationModifier', 'alwaysEdible', 'withDurability']],
+    ['item-behaviors', ['UseContext', 'damageItem', 'consume', 'cooldown', 'UseResult']],
+    ['events', ['onServerStarting', 'onServerStopped', 'onPlayerDeath', 'beforeBlockBreak', 'Subscription']],
+    ['commands', ['CommandRegistry', 'permissionLevel', 'rawArguments', 'CommandSource']],
+    ['persistent-data', ['DataView', 'getString', 'getLong', 'getDouble', 'getBoolean', 'UUID']],
+    ['play-networking', ['ModNetwork', 'registerServerReceiver', 'registerClientReceiver', 'sendToServer', 'sendToPlayer']],
+  ];
+  const index = JSON.parse(await readFile(join(outputRoot, 'search-index.json'), 'utf8'));
+  const { html: overview } = await htmlDocument(join(outputRoot, 'docs/overview/index.html'));
+  const { html: combined } = await htmlDocument(join(outputRoot, 'docs/gameplay-api/index.html'));
+  const { html: reference } = await htmlDocument(join(outputRoot, 'docs/api-reference/index.html'));
+  for (const [slug, members] of guides) {
+    const destination = `${basePath}docs/${slug}/`;
+    const { html } = await htmlDocument(join(outputRoot, `docs/${slug}/index.html`));
+    assert.ok(html.includes(`href="${destination}"`), `Guide missing from navigation: ${slug}`);
+    assert.ok(overview.includes(`href="${destination}"`), `Guide missing from overview: ${slug}`);
+    assert.ok(combined.includes(`href="${destination}"`), `Guide missing from gameplay overview: ${slug}`);
+    assert.ok(reference.includes(`href="${destination}"`), `Guide missing from API reference: ${slug}`);
+    assert.ok(index.some(entry => entry.url === destination && entry.section === 'Gameplay'), `Guide missing from gameplay search: ${slug}`);
+    assert.ok(/public[\s\S]*?class/.test(textContent(html)), `Guide needs a complete Java example: ${slug}`);
+    assert.ok(html.includes('schemaVersion'), `Guide needs metadata for its example: ${slug}`);
+    for (const member of members) assert.ok(textContent(html).includes(member), `Missing ${member} in ${slug}`);
+  }
+});
+
 test('changelog describes the configured release and retains published history', async () => {
   const { html } = await htmlDocument(join(outputRoot, 'changelog/index.html'));
   const currentHeading = html.match(/<article\b[^>]*class="release-entry"[^>]*>[\s\S]*?<h2>([\s\S]*?)<\/h2>/)?.[1];

@@ -52,6 +52,13 @@ The [gameplay guide](../gameplay-api/) explains the new services, and the
 [API reference](../api-reference/) describes the supported Java types. The SDK
 includes buildable Ruby Example source under `examples/ruby/`.
 
+Start with a focused tutorial for [food and durability](../food-and-durability/),
+[custom item use](../item-behaviors/), [events](../events/),
+[commands and permissions](../commands/), [persistent data](../persistent-data/)
+or [client/server messages](../play-networking/). Each includes a complete Java
+entrypoint and its required metadata. The [API reference](../api-reference/)
+covers all 32 public types in this release.
+
 HrajtyMC loads its own mod format. Existing mods written for a different loader
 need a HrajtyMC-compatible implementation. Additional gameplay APIs, such as mob
 registration, world generation, custom screens and block entities, are outside

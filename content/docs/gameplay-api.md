@@ -1,7 +1,7 @@
 ---
 title: Gameplay API
 description: Events, commands, persistent records, play networking and item behaviors in alpha.4.
-section: Mod development
+section: Gameplay
 ---
 
 HrajtyMC **0.1.0-alpha.4** adds experimental gameplay services for events,
@@ -21,6 +21,23 @@ classes or private loader source. Declare the alpha minimum explicitly:
 Use a shared `"environment": "both"` mod for content and networking. This API is
 experimental: require the version you develop against and check the changelog
 before upgrading. It currently targets Minecraft Java 26.3.
+
+Choose a focused guide when building a feature:
+
+| Feature | Complete tutorial |
+|---|---|
+| Edible and durable items | [Food and durability](../food-and-durability/) |
+| Right-click actions, cooldowns and consumption | [Custom item use](../item-behaviors/) |
+| Lifecycle, players and block protection | [Events and players](../events/) |
+| Commands, arguments and permission levels | [Commands and permissions](../commands/) |
+| World and player records | [Persistent data](../persistent-data/) |
+| Client/server messages | [Play networking](../play-networking/) |
+
+The [API reference](../api-reference/) lists every current public type and method.
+
+Each complete example is a separate mod project. To combine several features,
+merge their registrations into one entrypoint and keep one `hrajty.mod.json`.
+Use your own mod ID consistently in metadata, Java IDs, resource paths and recipes.
 
 ## Initialization and game threads
 
@@ -256,8 +273,9 @@ handlers over its local connection.
 Delivery schedules on the receiving game executor: C2S receivers run on the
 server thread, S2C receivers on the client thread. A queued message is discarded
 if the connection closes or its player is replaced. Unknown channels, invalid
-directions and receive limits refuse the connection; callback exceptions are
-logged with the channel and contained. Register both callbacks with API-only
+directions and receive limits refuse the connection. Receiver exceptions and
+linkage errors are logged with the channel and disconnect the affected
+connection. Register both callbacks with API-only
 code so a dedicated server never needs client game classes.
 
 ## Item properties and use behavior
